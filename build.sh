@@ -108,7 +108,7 @@ make_image() {
     echo "### Enabling system services"
     arch-chroot $image_mnt systemctl enable NetworkManager sshd systemd-resolved
     arch-chroot $image_mnt systemctl enable qbootctl-mark-bootable bootmac-bluetooth
-    arch-chroot $image_mnt systemctl disable iio-sensor-proxy
+    arch-chroot $image_mnt systemctl enable iio-sensor-proxy hexagonrpcd-sdsp
 
     echo "### Disabling systemd-firstboot"
     arch-chroot $image_mnt rm -f /usr/lib/systemd/system/sysinit.target.wants/systemd-firstboot.service
@@ -120,8 +120,12 @@ make_image() {
     arch-chroot $image_mnt find /var/lib/gdm -type f -exec chmod 644 {} \;
 
     echo "### Creating default user"
-    arch-chroot $image_mnt useradd -m -G audio,video,wheel user
-    echo 'user:147147' | arch-chroot $image_mnt chpasswd
+    arch-chroot $image_mnt useradd -m -G audio,video,wheel User
+    echo 'User:123' | arch-chroot $image_mnt chpasswd
+
+    echo "### Configuring sudo without password"
+    echo 'User ALL=(ALL) NOPASSWD: ALL' > $image_mnt/etc/sudoers.d/user-nopasswd
+    chmod 440 $image_mnt/etc/sudoers.d/user-nopasswd
 
     # echo "### SElinux labeling filesystem"
     # arch-chroot $image_mnt setfiles -F -p -c /etc/selinux/targeted/policy/policy.* -e /proc -e /sys -e /dev /etc/selinux/targeted/contexts/files/file_contexts /
