@@ -5,7 +5,6 @@
 
 - Kernel updates are handled by dnf. Updated boot image will be flashed to the active slot
 - Sensors may break after suspend, everything else should work as expected
-- Sensors are disabled by default, to enable install ```pipa-sensors``` package and enable ```iio-sensor-proxy``` and ```hexagonrpcd-sdsp``` services
 
 </details>
 
@@ -44,7 +43,7 @@ fastboot reboot
 - Recommended slots configuration: 
     - Slot A: Android
     - Slot B: Fedora linux
-- To switch slot from linux use ```sudo qbootctl -s [a|b]```
+- To switch slot from linux use ```sudo qbootctl -s [a|b]``` (pre-installed from [pocketblue](https://copr.fedorainfracloud.org/coprs/onesaladleaf/pocketblue/) repo)
 - To switch slot from android use [Boot Control](https://github.com/capntrips/BootControl) app
 - Disable Android OTA updates in settings. Otherwise it will override Fedora installation in the other slot
 

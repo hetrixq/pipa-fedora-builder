@@ -6,7 +6,8 @@
 ### User Notes
 
 - The root password is **fedora**
-- The user password is 147147
+- The user password is **123**
+- For dualboot slot switching use ```qbootctl``` (pre-installed)
 
 ## Credits
 
